@@ -10,10 +10,6 @@ In order to run this locally you must have Ruby 2.5.1 or greater installed on yo
 
 Here is a great guide on [getting started with rails](https://guides.rubyonrails.org/getting_started.html)
 
-```
-Give examples
-```
-
 ### Installing
 
 Once you have rails installed:
