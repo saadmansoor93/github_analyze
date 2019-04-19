@@ -1,24 +1,41 @@
-# README
+# Github Analyze
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails application to display pull requests for a Github repository
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+In order to run this locally you must have Ruby 2.5.1 or greater installed on your machine
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+Here is a great guide on [getting started with rails](https://guides.rubyonrails.org/getting_started.html)
 
-* Database creation
+```
+Give examples
+```
 
-* Database initialization
+### Installing
 
-* How to run the test suite
+Once you have rails installed:
 
-* Services (job queues, cache servers, search engines, etc.)
+cd into the repository and run the following:
 
-* Deployment instructions
+```
+rails s
+```
 
-* ...
+then goto the following url to access the prs of a repository in the ramda org:
+
+```
+http://localhost:3000/pull_requests/ramda?u={Github_username}&p={Github_token}&repo={repository_in_ramda_org}
+```
+
+or if you want all prs of the org, go to the following:
+
+```
+http://localhost:3000/pull_requests/ramda?u={Github_username}&p={Github_token}
+```
+
+there is a pagination limit of 5 pages per repository set. This can be changed on line 32 on [pull_requests_helper.rb](https://github.com/saadmansoor93/github_analyze/blob/master/app/helpers/application_helper.rb) file
+
+To generate a personal access token for github, follow [this link](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line). Make sure you have repo selected
