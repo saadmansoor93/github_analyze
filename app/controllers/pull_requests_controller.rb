@@ -14,4 +14,12 @@ class PullRequestsController < ApplicationController
 
     @response = ramda_repo_prs(params[:repo], params[:u], params[:p])
   end
+
+  def week_o_week
+    number_of_prs(params[:repo], params[:u], params[:p])
+  end
+
+  def average
+    average_time(params[:repo], params[:u], params[:p])
+  end
 end

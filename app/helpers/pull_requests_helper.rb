@@ -41,4 +41,54 @@ module PullRequestsHelper
 
     results.pluck('html_url')
   end
+
+  # of PRs merged
+  def number_of_prs(repo_name, username, auth_token)
+    prs = ramda_repo_prs(repo_name, username, auth_token)
+    total_merged = prs.select{ |pr| pr['merged_at'].blank? == false}
+    sorted_prs = total_merged.sort_by{ |prs| prs['merged_at'] }
+
+    first_pr_merge_date = sorted_prs.first['merged_at'].in_time_zone
+    last_pr_merge_date = sorted_prs.last['merged_at'].in_time_zone
+
+    date = first_pr_merge_date
+
+    week_hash = {}
+    while date < last_pr_merge_date
+      week_hash[date] = sorted_prs.select { |pr| (pr['merged_at'] > date) && (pr['merged_at'] < date + 1.week)  }.count
+      date += 1.week
+    end
+    binding.pry
+    week_hash
+  end
+
+  # Average and median time from PR creation to merge time
+  def average_time(repo_name, username, auth_token)
+    prs = ramda_repo_prs(repo_name, username, auth_token)
+    total_merged = prs.select{ |pr| pr['merged_at'].blank? == false}
+    sorted_prs = total_merged.sort_by{ |prs| prs['merged_at'] }
+
+    first_pr_merge_date = sorted_prs.first['merged_at'].in_time_zone
+    last_pr_merge_date = sorted_prs.last['merged_at'].in_time_zone
+
+    first_pr_created_date = sorted_prs.first['created_at'].in_time_zone
+    last_pr_created_date = sorted_prs.last['created_at'].in_time_zone
+
+    date = first_pr_merge_date
+
+    week_hash = {}
+    while date < last_pr_merge_date
+      prs_for_week = sorted_prs.select { |pr| (pr['merged_at'] > date) && (pr['merged_at'] < date + 1.week)  }
+      total_prs_for_week = prs_for_week.count
+
+      prs_for_week_time = prs_for_week.map { |pr| pr['merged_at'].in_time_zone - pr['created_at'].in_time_zone  }
+      sum = prs_for_week_time.sum
+
+      week_hash[date] = total_prs_for_week == 0 ? 0 : sum/total_prs_for_week
+      date += 1.week
+    end
+
+    week_hash
+  end
+
 end
