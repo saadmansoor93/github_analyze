@@ -10,10 +10,6 @@ In order to run this locally you must have Ruby 2.5.1 or greater installed on yo
 
 Here is a great guide on [getting started with rails](https://guides.rubyonrails.org/getting_started.html)
 
-```
-Give examples
-```
-
 ### Installing
 
 Once you have rails installed:
@@ -34,6 +30,13 @@ or if you want all prs of the org, go to the following:
 
 ```
 http://localhost:3000/pull_requests/ramda?u={Github_username}&p={Github_token}
+```
+
+The application is also deployed on google could platfrom. 
+
+You can try it out at this link by entering the correct credentials:
+```
+https://github-prs-analyze.appspot.com/pull_requests/ramda?u={Github_username}&p={Github_token}&repo={repository_in_ramda_org}
 ```
 
 there is a pagination limit of 5 pages per repository set. This can be changed on line 32 on [pull_requests_helper.rb](https://github.com/saadmansoor93/github_analyze/blob/master/app/helpers/application_helper.rb) file
